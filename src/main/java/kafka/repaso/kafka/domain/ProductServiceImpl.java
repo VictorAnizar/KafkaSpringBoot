@@ -53,9 +53,13 @@ public class ProductServiceImpl implements ProductService{
         //If we want some acknowledgment when reciving messages we can implement this code in a
         //Synchronously way
 
+        LOGGER.info("Before sending message------------");
+
         SendResult<String, ProductCreatedEvent> result = kafkaTemplate
                 .send("products-created-events-topic", productId, productCreatedEvent).get();
 
+        LOGGER.info("Partition: "+result.getRecordMetadata().partition());
+        LOGGER.info("Topic: "+result.getRecordMetadata().topic());
 
 
         LOGGER.info("************** Returning product id ");
