@@ -29,6 +29,9 @@ public class KafkaConfig {
     @Value("${spring.kafka.producer.acks}")
     private String acks;
 
+    @Value("${spring.kafka.producer.properties.enable.idempotence}")
+    private String idempotence;
+
     /*Another way to configure the producer
     when want to configure aspects such as acknowledge or retries and NOT ONLY by application.properties*/
     Map<String, Object> producerConfigs(){
@@ -37,6 +40,7 @@ public class KafkaConfig {
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
         config.put(ProducerConfig.ACKS_CONFIG, acks);
+        config.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, idempotence);
         return config;
     }
 
